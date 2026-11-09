@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.0.0] - 2026-11-09
 
 ### Added
 - `FluidStreamBenchmarkKit`:
@@ -11,3 +11,5 @@
 - Time while the app is inactive (Control Center, notifications, app switcher) is excluded from every metric and noted in the log.
 - BenchmarkApp: FluidStreamKit, Naive SwiftUI and Split (demo only) modes, plus TestFlight build settings.
 - RFC-004: benchmark methodology and the per-scroll metric (Addendum A).
+
+[1.0.0]: https://github.com/zhaziragaripolla/FluidStreamBench/releases/tag/1.0.0
