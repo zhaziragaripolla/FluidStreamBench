@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Tests and iOS build
+    runs-on: macos-26
+    timeout-minutes: 20
+    steps:
+      # Package.swift depends on a sibling checkout of FluidStreamKit (../FluidStreamKit).
+      - uses: actions/checkout@v5
+        with:
+          path: FluidStreamBench
+      - uses: actions/checkout@v5
+        with:
+          repository: zhaziragaripolla/FluidStreamKit
+          path: FluidStreamKit
+      - name: Tests (macOS)
+        working-directory: FluidStreamBench
+        run: swift test
+      - name: Build (iOS)
+        working-directory: FluidStreamBench
+        run: xcodebuild build -scheme FluidStreamBench -destination 'generic/platform=iOS' -quiet
